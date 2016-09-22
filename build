@@ -164,7 +164,7 @@ PACKS="
   systemd:kurayama/systemd-vim-syntax
   textile:timcharper/textile.vim
   thrift:solarnz/thrift.vim
-  tmux:tejr/vim-tmux
+  tmux:tmux-plugins/vim-tmux
   tomdoc:wellbredgrapefruit/tomdoc.vim
   toml:cespare/vim-toml
   twig:evidens/vim-twig

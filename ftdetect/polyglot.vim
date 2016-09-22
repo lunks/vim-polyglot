@@ -32,7 +32,7 @@ augroup END
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'clojure') == -1
   
-autocmd BufNewFile,BufRead *.clj,*.cljs,*.edn,*.cljx,*.cljc setlocal filetype=clojure
+autocmd BufNewFile,BufRead *.clj,*.cljs,*.edn,*.cljx,*.cljc,{build,profile}.boot setlocal filetype=clojure
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'coffee-script') == -1
   
@@ -86,12 +86,22 @@ au BufNewFile,BufRead *.elm		set filetype=elm
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'emberscript') == -1
   
+if !exists('g:vim_ember_script')
+  let g:vim_ember_script = 1
+endif
 autocmd BufNewFile,BufRead *.em set filetype=ember-script
 autocmd FileType ember-script set tabstop=2|set shiftwidth=2|set expandtab
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'emblem') == -1
   
-autocmd BufNewFile,BufRead *.emblem set filetype=emblem
+if !exists('g:vim_emblem')
+  let g:vim_emblem = 1
+endif
+if exists('g:vim_ember_script')
+  autocmd BufNewFile,BufRead *.emblem set filetype=emblem
+else
+  autocmd BufNewFile,BufRead *.em,*.emblem set filetype=emblem
+endif
 autocmd FileType emblem set tabstop=2|set shiftwidth=2|set expandtab
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'erlang') == -1
@@ -128,14 +138,14 @@ if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'go') == -1
 let s:current_fileformats = ''
 let s:current_fileencodings = ''
 function! s:gofiletype_pre(type)
-    let s:current_fileformats = &g:fileformats
-    let s:current_fileencodings = &g:fileencodings
-    set fileencodings=utf-8 fileformats=unix
-    let &l:filetype = a:type
+  let s:current_fileformats = &g:fileformats
+  let s:current_fileencodings = &g:fileencodings
+  set fileencodings=utf-8 fileformats=unix
+  let &l:filetype = a:type
 endfunction
 function! s:gofiletype_post()
-    let &g:fileformats = s:current_fileformats
-    let &g:fileencodings = s:current_fileencodings
+  let &g:fileformats = s:current_fileformats
+  let &g:fileencodings = s:current_fileencodings
 endfunction
 au BufNewFile *.go setfiletype go | setlocal fileencoding=utf-8 fileformat=unix
 au BufRead *.go call s:gofiletype_pre("go")
@@ -390,7 +400,7 @@ au BufNewFile,BufRead .pryrc			call s:setf('ruby')
 au BufNewFile,BufRead Puppetfile		call s:setf('ruby')
 au BufNewFile,BufRead *.rabl			call s:setf('ruby')
 au BufNewFile,BufRead [rR]outefile		call s:setf('ruby')
-au BufNewFile,BufRead .simplecov		call s:setf('ruby)
+au BufNewFile,BufRead .simplecov		call s:setf('ruby')
 au BufNewFile,BufRead [tT]horfile,*.thor	call s:setf('ruby')
 au BufNewFile,BufRead [vV]agrantfile		call s:setf('ruby')
 endif
@@ -461,8 +471,7 @@ au BufNewFile,BufRead *.thrift setlocal filetype=thrift
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'tmux') == -1
   
-autocmd BufNewFile,BufRead {.,}tmux.conf{.*,} setlocal filetype=tmux
-autocmd BufNewFile,BufRead {.,}tmux.conf{.*,} setlocal commentstring=#\ %s
+autocmd BufNewFile,BufRead {.,}tmux*.conf set ft=tmux | compiler tmux
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'toml') == -1
   
