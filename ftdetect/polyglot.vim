@@ -131,7 +131,7 @@ autocmd BufNewFile,BufRead *
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'glsl') == -1
   
-autocmd! BufNewFile,BufRead *.glsl,*.geom,*.vert,*.frag,*.gsh,*.vsh,*.fsh,*.vs,*.fs,*.gs,*.tcs,*.tes set filetype=glsl
+autocmd! BufNewFile,BufRead *.glsl,*.geom,*.vert,*.frag,*.gsh,*.vsh,*.fsh,*.vs,*.fs,*.gs,*.tcs,*.tes,*.tesc,*.tese,*.comp set filetype=glsl
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'go') == -1
   
@@ -164,6 +164,8 @@ endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'haskell') == -1
   
 au BufRead,BufNewFile *.hsc set filetype=haskell
+au BufRead,BufNewFile *.bpk set filetype=haskell
+au BufRead,BufNewFile *.hsig set filetype=haskell
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'haxe') == -1
   
@@ -425,7 +427,7 @@ au BufRead,BufNewFile *.sbt setfiletype sbt.scala
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'slim') == -1
   
-autocmd BufNewFile,BufRead *.slim setf slim
+autocmd BufNewFile,BufRead *.slim setfiletype slim
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'solidity') == -1
   
@@ -475,8 +477,7 @@ autocmd BufNewFile,BufRead {.,}tmux*.conf set ft=tmux | compiler tmux
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'toml') == -1
   
-autocmd BufNewFile,BufRead *.toml set filetype=toml
-autocmd BufNewFile,BufRead Cargo.lock set filetype=toml
+autocmd BufNewFile,BufRead *.toml,Cargo.lock,.cargo/config set filetype=toml
 endif
 if !exists('g:polyglot_disabled') || index(g:polyglot_disabled, 'typescript') == -1
   
